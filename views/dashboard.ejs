@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Notes app</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul>
+    <div class="my-2 my-lg-0">
+      <a href="/users/logout" class="btn btn-success">Logout</a>
+      <a class="navbar-brand ml-2"><%= user.name %></a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<br>
+<br>
+
+<% if(error == 'danger') { %> 
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Problems in form!</strong> You should write in on all of those fields below.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% } %> 
+
+<form action="/note" method="POST" class="mt-4" autocomplete="off">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Title</label>
+    <input type="text" class="form-control" id="noteTitle" placeholder="Title" name="title">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  name="description"></textarea>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-info">Add</button>
+</form>
+
+<div class="row mt-4">
+
+<% user.notes.forEach(note => { %>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><%= note.title %></h5>
+        <div>
+          <%- note.description %>
+        </div>
+        <br>
+        <button 
+          class="btn btn-danger" 
+          onclick="console.log(this.id); fetch(`/note/${this.id}`, { method: 'delete' }); window.location.reload();" id="<%= note.index %>"
+        >delete</button>
+      </div>
+    </div>
+    <br>
+    <br>
+  </div>
+<% }) %>
+
+</div>
+
+<br>
+<br>
+
+</div>
