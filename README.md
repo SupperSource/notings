@@ -8,9 +8,7 @@ This is an application which has login system with notes
 
 ```sh
 $ npm install
-```
-
-```sh
+# To install all the dependencies
 $ npm start
 # Or run with Nodemon
 $ npm run dev
